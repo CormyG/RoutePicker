@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Add Map</title>
+    <link href="RunningApp.css" rel="stylesheet" type="text/css"/>
+    
+    <script>
+       function initMap() {
+  const directionsService = new google.maps.DirectionsService();
+  const directionsRenderer = new google.maps.DirectionsRenderer();
+  const map = new google.maps.Map(document.getElementById("map"), {
+    zoom: 15,
+    center: { lat: 53.38463, lng: -6.60116 },
+  });
+  directionsRenderer.setMap(map);
+
+  const onChangeHandler = function () {
+    calculateAndDisplayRoute(directionsService, directionsRenderer);
+  };
+  document.getElementById("start").addEventListener("change", onChangeHandler);
+  document.getElementById("end").addEventListener("change", onChangeHandler);
+}
+
+function calculateAndDisplayRoute(directionsService, directionsRenderer) {
+  directionsService.route(
+    {
+      origin: {
+        query: document.getElementById("start").value,
+      },
+      destination: {
+        query: document.getElementById("end").value,
+      },
+      travelMode: google.maps.TravelMode.WALKING,
+    },
+    (response, status) => {
+      if (status === "OK") {
+        directionsRenderer.setDirections(response);
+      } else {
+        window.alert("Directions request failed due to " + status);
+      }
+    }
+  );
+}
+
+    </script>
+      
+    <script async defer
+    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAAOT6EESupS57MbX-X_ew85YNxPIgZwBU&callback=initMap&libraries=&v=weekly">
+</script>
+  </head>
+  <body>        <header>
+    <a href="index.html">
+        <h2 id="logo">We Run</h2>
+    </a>
+    <nav>
+        <ul id="menu">
+            <li>
+                <a href="#" class="logged-in" id="logout">Logout</a>
+            </li>
+            <li>
+                <a class="logged-in" href="account.html">Account</a>
+            </li>
+            <li>
+                <a class="logged-in" href="run-log.html">Run Log</a>
+            </li>
+            <li>
+                <a class="logged-out" href="signup.html">Sign Up</a>
+            </li>
+            <li>
+                <a class="logged-out" href="login.html">Login</a>
+            </li>
+            <li>
+                <a class="nav" href="gallery.html">Gallery</a>
+            </li>
+            <li>
+                <a class="active nav" href="index.html">Home</a>
+            </li>
+        </ul>
+    </nav>
+</header>
+    <h3> Routes for your runs!</h3>
+    <!--The div element for the map -->
+
+    <div id = "floating-panel">
+            <strong>Start: </strong>
+            <select id = "start">
+            <option value="maynooth university">Maynooth University</option>
+            <option value= 'dcu sports grounds'>DCU</option>
+            </select>
+            
+            <b>End: </b>
+            <select id = "end">
+                <option value='maynooth university'>Please Select</option>
+                <option value='moyglare nursing home'>1 KM</option>
+                <option value = 'jacksons bridge royal canal'>2KM</option>
+                <option value = 'barrets maynooth limited'>3 KM</option>
+                <option value = 'pike bridge, maynooth'>4KM</option>
+                <option value = 'carton veiw b&b'>5 KM</option>
+              
+            </select>
+    </div>
+    <div id="map"></div>
+
+    <footer>
+        <ul class="social-networks">
+            <li>
+                <a href="https://www.facebook.com" target="_blank"><i class="fab fa-facebook"></i></a>
+            </li>
+            <li>
+                <a href="https://www.twitter.com" target="_blank"><i class="fab fa-twitter-square"></i></a>
+            </li>
+            <li>
+                <a href="https://www.youtube.com" target="_blank"><i class="fab fa-youtube"></i></a>
+            </li>
+            <li>
+                <a href="https://www.instagram.com" target="_blank"><i class="fab fa-instagram"></i></a>
+            </li>
+        </ul>
+    </footer>
+    <script src="https://kit.fontawesome.com/3982258271.js"></script>
+  </body>
+</html>
